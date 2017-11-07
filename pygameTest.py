@@ -35,7 +35,7 @@ while done == False:
 		x1 = sin.get_width()
 
 	for event in pygame.event.get():
-		if event.type == pygame.QUIT:
+		if event.type == pygame.QUIT or event.type == pygame.KEYDOWN:
 			done = True
 pygame.quit()
 sys.exit()
