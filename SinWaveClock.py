@@ -9,7 +9,7 @@ class SinWaveClock(pygame.Surface):
     pygame.Surface.__init__(self,(width, height))
     pygame.font.init()
     self.sin_Length_ = 451
-    self.sin_DotProximity_ = 14
+    self.sin_DotProximity_ = 10
     self.sin_DotSize_ = 8
     self.sin_Period_ = .25
     self.sin_Frequency_ = 4
@@ -17,7 +17,7 @@ class SinWaveClock(pygame.Surface):
     self.sin_YDisplacment_ = -10
     self.sin_XDisplacment_ = 535
     self.sin_LnColor_ = lnColor
-    self.sin_LnRadius_ = 6
+    self.sin_LnRadius_ = 4
     self.bgColor_ = bgColor
     self.bgSurface_ = pygame.Surface((width, height))
     self.datePosition_ = (20,10)
