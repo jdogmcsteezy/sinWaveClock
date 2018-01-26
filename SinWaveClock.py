@@ -2,7 +2,7 @@ import pygame
 from pygame import Surface
 import time
 import math
-import os
+from os import path
 
 class SinWaveClock(pygame.Surface):
   def __init__(self, height, width):
@@ -17,7 +17,7 @@ class SinWaveClock(pygame.Surface):
     self.sin_Frequency = 4
     self.sin_Amplitude = 50 # in px
     self.sin_YDisplacment = 75
-    self.sin_XDisplacment = 0
+    self.sin_XDisplacment = -30
     # Color for dots in the future
     self.sin_LnColorPrimary = (198,225,234)
     # Clolor for dots in the past
@@ -27,16 +27,16 @@ class SinWaveClock(pygame.Surface):
     self.bgColor = (0,0,0)
     self.bgSurface = pygame.Surface((width, height))
     # FONTS
-    self.secondsFont = pygame.font.Font((os.path.dirname(os.path.realpath(__file__)) + '/1979_dot_matrix.ttf'), 30)
-    self.dateFont = pygame.font.Font((os.path.dirname(os.path.realpath(__file__)) + '/1979_dot_matrix.ttf'), 50)
-    self.timeFont = pygame.font.Font((os.path.dirname(os.path.realpath(__file__)) + '/charlie_dotted.ttf'), 150)
+    self.secondsFont = pygame.font.Font((path.dirname(path.realpath(__file__)) + '/1979_dot_matrix.ttf'), 30)
+    self.dateFont = pygame.font.Font((path.dirname(path.realpath(__file__)) + '/1979_dot_matrix.ttf'), 50)
+    self.timeFont = pygame.font.Font((path.dirname(path.realpath(__file__)) + '/charlie_dotted.ttf'), 150)
     self.fontColor = (255,255,255)
     self.previousSec = int(time.time() % 60)
     self.previousTime = time.strftime('%I:%M %p')
     self.previousDate = time.strftime('%a, %b %d')
-    self.secondsSurface = self.secondsFont.render(str(self.previousSec), False, (255,255,255))
-    self.dateSurface = self.dateFont.render(str(self.previousDate), False, (255,255,255))
-    self.timeSurface = self.timeFont.render(str(self.previousTime), False, (255,255,255))
+    self.secondsSurface = self.secondsFont.render(str(self.previousSec), True, (255,255,255))
+    self.dateSurface = self.dateFont.render(str(self.previousDate), True, (255,255,255))
+    self.timeSurface = self.timeFont.render(str(self.previousTime), True, (255,255,255))
     self.bgSurface.fill(self.bgColor)
     self.bgSurface.convert()
     self.blit(self.bgSurface, (0,0))
@@ -46,14 +46,17 @@ class SinWaveClock(pygame.Surface):
     currentTime = time.strftime('%I:%M %p')
     currentDate = time.strftime('%a, %b %d')
     currentSecond = int(time.time() % 60)
+    # An improvment that could be made with All the render statements is adding a 
+    # background color, pygame documentation says its much more efficient than 
+    # Alpha channels.
     if self.previousSec != currentSecond:
-      self.secondsSurface = self.secondsFont.render(str(currentSecond), False, self.fontColor)
+      self.secondsSurface = self.secondsFont.render(str(currentSecond), True, self.fontColor)
       self.previousSec = currentSecond
     if self.previousDate != currentDate:
-      self.dateSurface = self.dateFont.render(str(currentDate), False, self.fontColor)
+      self.dateSurface = self.dateFont.render(str(currentDate), True, self.fontColor)
       self.previousDate = currentDate
     if self.previousTime != currentTime:
-      self.timeSurface = self.timeFont.render(str(currentTime), False, self.fontColor)
+      self.timeSurface = self.timeFont.render(str(currentTime), True, self.fontColor)
       self.previousTime = currentTime
 
     self.blit(self.bgSurface, (0,0))
