@@ -56,14 +56,17 @@ class SinWaveClock(pygame.Surface):
     # background color, pygame documentation says its much more efficient than 
     # Alpha channels.
     if self.previousSec != currentSecond:
-      self.secondsSurface = self.secondsFont.render(str(currentSecond), True, self.fontColor)
-      self.previousSec = currentSecond
+        if currentSecond > 9:
+            self.secondsSurface = self.secondsFont.render(str(currentSecond), True, self.fontColor)
+        else:
+            self.secondsSurface = self.secondsFont.render('0' + str(currentSecond), True, self.fontColor)
+        self.previousSec = currentSecond
     if self.previousDate != currentDate:
-      self.dateSurface = self.dateFont.render(str(currentDate), True, self.fontColor)
-      self.previousDate = currentDate
+        self.dateSurface = self.dateFont.render(str(currentDate), True, self.fontColor)
+        self.previousDate = currentDate
     if self.previousTime != currentTime:
-      self.timeSurface = self.timeFont.render(str(currentTime), True, self.fontColor)
-      self.previousTime = currentTime
+        self.timeSurface = self.timeFont.render(str(currentTime), True, self.fontColor)
+        self.previousTime = currentTime
 
     self.blit(self.bgSurface, (0,0))
     # Traverses through every pixel from left to right for sin wave and prints every frame
